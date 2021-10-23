@@ -47,8 +47,8 @@ TEST(VectorTests, OperatorSquareBrackets)
 
 	for (size_t i = 0; i < vec_double.GetSize(); i++)
 	{
-		vec_double[i] = i + 1.3;
-		EXPECT_EQ(i + 1.3, vec_double[i]);
+		vec_double[i] = (double)i + 1.3;
+		EXPECT_EQ((double)i + 1.3, vec_double[i]);
 	}
 
 	Vector<float> vec_float(3);
@@ -59,7 +59,7 @@ TEST(VectorTests, OperatorSquareBrackets)
 	for (size_t i = 0; i < vec_float.GetSize(); i++)
 	{
 		vec_float[i] = (float)i + (float)1.5;
-		EXPECT_EQ(i + 1.5, vec_float[i]);
+		EXPECT_EQ((float)i + 1.5, vec_float[i]);
 	}
 
 	Vector<std::complex<float>> float_complex(3);
@@ -70,8 +70,8 @@ TEST(VectorTests, OperatorSquareBrackets)
 
 	for (size_t i = 0; i < float_complex.GetSize(); i++)
 	{
-		float_complex[i] =  std::complex<float>((float)1.5*i,-(float)2.5*i);
-		EXPECT_EQ(std::complex<float>((float)1.5*i,-(float)2.5*i), float_complex[i]);
+		float_complex[i] =  std::complex<float>((float)1.5* (float)i,-(float)2.5* (float)i);
+		EXPECT_EQ(std::complex<float>((float)1.5* (float)i,-(float)2.5* (float)i), float_complex[i]);
 	}
 
 	Vector<std::complex<double>> double_complex(3);
@@ -81,8 +81,8 @@ TEST(VectorTests, OperatorSquareBrackets)
 
 	for (size_t i = 0; i < double_complex.GetSize(); i++)
 	{
-		double_complex[i] = std::complex<double>(-1.5 * i, -2.5 * i);
-		EXPECT_EQ(std::complex<double>(-1.5 * i, -2.5 * i), double_complex[i]);
+		double_complex[i] = std::complex<double>(-1.5 * (double)i, -2.5 * (double)i);
+		EXPECT_EQ(std::complex<double>(-1.5 * (double)i, -2.5 * (double)i), double_complex[i]);
 	}
 	EXPECT_THROW(vec[-1], std::out_of_range);
 	EXPECT_THROW(vec_double[5], std::out_of_range);
@@ -95,13 +95,13 @@ TEST(VectorTests, CopyCTOR)
 	//int
 	{
 		Vector<int> vec_int_first(3);
-		for (int i = 0; i < vec_int_first.GetSize(); i++)
+		for (size_t i = 0; i < vec_int_first.GetSize(); i++)
 		{
-			vec_int_first[i] = i + 1;
+			vec_int_first[i] = (int)i + 1;
 		}
 		Vector<int> vec_int_second(vec_int_first);
 		EXPECT_EQ(3, vec_int_second.GetSize());
-		for (int i = 0; i < vec_int_second.GetSize(); i++)
+		for (size_t i = 0; i < vec_int_second.GetSize(); i++)
 		{
 			EXPECT_EQ(vec_int_second[i], i + 1);
 		}

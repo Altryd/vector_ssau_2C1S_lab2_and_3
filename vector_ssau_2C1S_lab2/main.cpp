@@ -1,5 +1,6 @@
 #include "Vector.h"
 #include <complex>
+#define DEBUG_MODE
 
 template <typename T>
 void GetValueFromUser(T& value)
@@ -54,6 +55,7 @@ void GetValueFromUserInRange(T& value, const T& left_border, const T& right_bord
 		}
 	}
 }
+
 template <typename Type_Vectors>
 void Menu(Type_Vectors)
 {
@@ -80,227 +82,11 @@ void Menu(Type_Vectors)
 			//[] , * by scalar , / by scalar
 			if (order_number == 1)
 			{
-				bool working_with_first_vector = true;
-				while (working_with_first_vector)
-				{
-					system("cls");
-					std::cout << first_vector << std::endl;
-					std::cout << "You are now editing the first vector, Enter:" << std::endl;
-					std::cout << "0 - to edit the element in the vector with index\n1 - to multiply the vector by a scalar" << std::endl;
-					std::cout << "2 - to divide the vector by a scalar\n3 - add a new random element in the vector with index " << std::endl;
-					std::cout << "4 - remove an element from the vector\n5 - finish working with the vector" << std::endl;
-					long int editing_first_vector = 0;
-					GetValueFromUserInRange(editing_first_vector, (long int)0, (long int)5, "Enter the number in range[0;5]");
-					switch (editing_first_vector)
-					{
-					case 0: //edit
-					{
-						size_t index = 0;
-						GetValueFromUser(index);
-						try
-						{
-							std::cout << "Enter a new value for the element" << std::endl;
-							Type_Vectors value = 0;
-							GetValueFromUser(value);
-							first_vector[index] = value;
-						}
-						catch (std::out_of_range& ex)
-						{
-							std::cout << ex.what() << " Try again" << std::endl;
-							system("pause");
-						}
-						break;
-					}
-					case 1: //*=
-					{
-						std::cout << "Enter a scalar" << std::endl;
-						Type_Vectors scalar = 0;
-						GetValueFromUser(scalar);
-						first_vector *= scalar;
-						break;
-					}
-					case 2: // /=
-					{
-						std::cout << "Enter a scalar" << std::endl;
-						Type_Vectors scalar = 0;
-						GetValueFromUser(scalar);
-						try
-						{
-							first_vector /= scalar;
-						}
-						catch (const char* ex)
-						{
-							std::cout << ex << " Try again" << std::endl;
-							system("pause");
-						}
-						break;
-					}
-					case 3: //insert
-					{
-						if (first_vector.GetSize())
-						{
-							std::cout << "Enter the index of element to insert" << std::endl;
-							size_t index = 0;
-							GetValueFromUser(index);
-							try
-							{
-								Type_Vectors value = (Type_Vectors)rand();
-								first_vector.Insert(value, index);
-							}
-							catch (std::out_of_range& ex)
-							{
-								std::cout << ex.what() << " Try again" << std::endl;
-								system("pause");
-							}
-						}
-						else
-						{
-							first_vector.PushBack((Type_Vectors)rand());
-						}
-						break;
-					}
-					case 4: //erase
-					{
-						if (first_vector.GetSize())
-						{
-							std::cout << "Enter the index of element to delete" << std::endl;
-							size_t index = 0;
-							GetValueFromUser(index);
-							try
-							{
-								first_vector.Erase(index);
-							}
-							catch (std::out_of_range& ex)
-							{
-								std::cout << ex.what() << " Try again" << std::endl;
-								system("pause");
-							}
-						}
-						else
-						{
-							std::cout << "There are no elements to delete" << std::endl;
-						}
-						break;
-					}
-					case 5: //finish working
-					{
-						working_with_first_vector = false;
-						break;
-					}
-					}
-				}
+				MenuWorkingWithVector(first_vector);
 			}
 			else
 			{
-				bool working_with_second_vector = true;
-				while (working_with_second_vector)
-				{
-					system("cls");
-					std::cout << second_vector << std::endl;
-					std::cout << "You are now editing the second vector, Enter:" << std::endl;
-					std::cout << "0 - to edit the element in the vector with index\n1 - to multiply the vector by a scalar" << std::endl;
-					std::cout << "2 - to divide the vector by a scalar\n3 - add a new random element in the vector with index " << std::endl;
-					std::cout << "4 - remove an element from the vector\n5 - finish working with the vector" << std::endl;
-					long int editing_second_vector = 0;
-					GetValueFromUserInRange(editing_second_vector, (long int)0, (long int)5, "Enter the number in range[0;5]");
-					switch (editing_second_vector)
-					{
-					case 0: //edit
-					{
-						size_t index = 0;
-						GetValueFromUser(index);
-						try
-						{
-							std::cout << "Enter a new value for the element" << std::endl;
-							Type_Vectors value = 0;
-							GetValueFromUser(value);
-							second_vector[index] = value;
-						}
-						catch (std::out_of_range& ex)
-						{
-							std::cout << ex.what() << " Try again" << std::endl;
-							system("pause");
-						}
-						break;
-					}
-					case 1: //*=
-					{
-						std::cout << "Enter a scalar" << std::endl;
-						Type_Vectors scalar = 0;
-						GetValueFromUser(scalar);
-						second_vector *= scalar;
-						break;
-					}
-					case 2: // /=
-					{
-						std::cout << "Enter a scalar" << std::endl;
-						Type_Vectors scalar = 0;
-						GetValueFromUser(scalar);
-						try
-						{
-							second_vector /= scalar;
-						}
-						catch (const char* ex)
-						{
-							std::cout << ex << " Try again" << std::endl;
-							system("pause");
-						}
-						break;
-					}
-					case 3: //insert
-					{
-						if (second_vector.GetSize())
-						{
-							std::cout << "Enter the index of element to insert" << std::endl;
-							size_t index = 0;
-							GetValueFromUser(index);
-							try
-							{
-								Type_Vectors value = (Type_Vectors)rand();
-								second_vector.Insert(value, index);
-							}
-							catch (std::out_of_range& ex)
-							{
-								std::cout << ex.what() << " Try again" << std::endl;
-								system("pause");
-							}
-						}
-						else
-						{
-							second_vector.PushBack((Type_Vectors)rand());
-						}
-						break;
-					}
-					case 4: //erase
-					{
-						if (second_vector.GetSize())
-						{
-							std::cout << "Enter the index of element to erase" << std::endl;
-							size_t index = 0;
-							GetValueFromUser(index);
-							try
-							{
-								second_vector.Erase(index);
-							}
-							catch (std::out_of_range& ex)
-							{
-								std::cout << ex.what() << " Try again" << std::endl;
-								system("pause");
-							}
-						}
-						else
-						{
-							std::cout << "There are no elements to delete" << std::endl;
-						}
-						break;
-					}
-					case 5: //finish working
-					{
-						working_with_second_vector = false;
-						break;
-					}
-					}
-				}
+				MenuWorkingWithVector(second_vector);
 			}
 			break;
 		}
@@ -332,7 +118,7 @@ void Menu(Type_Vectors)
 			system("pause");
 			break;
 		}
-		case 3: //скал¤рное произведение
+		case 3: //скалярное произведение
 		{
 			try
 			{
@@ -359,7 +145,7 @@ void Menu(Type_Vectors)
 			system("pause");
 			break;
 		}
-		case 6:
+		case 6: //приравнять первый ко второму
 		{
 			first_vector = second_vector;
 			break;
@@ -400,227 +186,11 @@ void Menu(std::complex<Type_Vectors>)
 			//[] , * by scalar , / by scalar
 			if (order_number == 1)
 			{
-				bool working_with_first_vector = true;
-				while (working_with_first_vector)
-				{
-					system("cls");
-					std::cout << first_vector << std::endl;
-					std::cout << "You are now editing the first vector, Enter:" << std::endl;
-					std::cout << "0 - to edit the element in the vector with index\n1 - to multiply the vector by a scalar" << std::endl;
-					std::cout << "2 - to divide the vector by a scalar\n3 - add a new random element in the vector with index " << std::endl;
-					std::cout << "4 - remove an element from the vector\n5 - finish working with the vector" << std::endl;
-					long int editing_first_vector = 0;
-					GetValueFromUserInRange(editing_first_vector, (long int)0, (long int)5, "Enter the number in range[0;5]");
-					switch (editing_first_vector)
-					{
-					case 0: //edit
-					{
-						size_t index = 0;
-						GetValueFromUser(index);
-						try
-						{
-							std::cout << "Enter a new value for the element" << std::endl;
-							std::complex<Type_Vectors> value((Type_Vectors)0, (Type_Vectors)0);
-							GetValueFromUser(value);
-							first_vector[index] = value;
-						}
-						catch (std::out_of_range& ex)
-						{
-							std::cout << ex.what() << " Try again" << std::endl;
-							system("pause");
-						}
-						break;
-					}
-					case 1: //*=
-					{
-						std::cout << "Enter a scalar" << std::endl;
-						std::complex<Type_Vectors> scalar((Type_Vectors)0, (Type_Vectors)0);
-						GetValueFromUser(scalar);
-						first_vector *= scalar;
-						break;
-					}
-					case 2: // /=
-					{
-						std::cout << "Enter a scalar" << std::endl;
-						std::complex<Type_Vectors> scalar((Type_Vectors)0, (Type_Vectors)0);
-						GetValueFromUser(scalar);
-						try
-						{
-							first_vector /= scalar;
-						}
-						catch (const char* ex)
-						{
-							std::cout << ex << " Try again" << std::endl;
-							system("pause");
-						}
-						break;
-					}
-					case 3: //insert
-					{
-						if (first_vector.GetSize())
-						{
-							std::cout << "Enter the index of element to insert" << std::endl;
-							size_t index = 0;
-							GetValueFromUser(index);
-							try
-							{
-								std::complex<Type_Vectors> value((Type_Vectors)rand(), (Type_Vectors)rand());
-								first_vector.Insert(value, index);
-							}
-							catch (std::out_of_range& ex)
-							{
-								std::cout << ex.what() << " Try again" << std::endl;
-								system("pause");
-							}
-						}
-						else
-						{
-							first_vector.PushBack(std::complex<Type_Vectors>((Type_Vectors)rand(), (Type_Vectors)rand()));
-						}
-						break;
-					}
-					case 4: //erase
-					{
-						if (first_vector.GetSize())
-						{
-							std::cout << "Enter the index of element to delete" << std::endl;
-							size_t index = 0;
-							GetValueFromUser(index);
-							try
-							{
-								first_vector.Erase(index);
-							}
-							catch (std::out_of_range& ex)
-							{
-								std::cout << ex.what() << " Try again" << std::endl;
-								system("pause");
-							}
-						}
-						else
-						{
-							std::cout << "There are no elements to delete" << std::endl;
-						}
-						break;
-					}
-					case 5: //finish working
-					{
-						working_with_first_vector = false;
-						break;
-					}
-					}
-				}
+				MenuWorkingWithVector(first_vector);
 			}
 			else
 			{
-				bool working_with_second_vector = true;
-				while (working_with_second_vector)
-				{
-					system("cls");
-					std::cout << second_vector << std::endl;
-					std::cout << "You are now editing the second vector, Enter:" << std::endl;
-					std::cout << "0 - to edit the element in the vector with index\n1 - to multiply the vector by a scalar" << std::endl;
-					std::cout << "2 - to divide the vector by a scalar\n3 - add a new random element in the vector with index " << std::endl;
-					std::cout << "4 - remove an element from the vector\n5 - finish working with the vector" << std::endl;
-					long int editing_second_vector = 0;
-					GetValueFromUserInRange(editing_second_vector, (long int)0, (long int)5, "Enter the number in range[0;5]");
-					switch (editing_second_vector)
-					{
-					case 0: //edit
-					{
-						size_t index = 0;
-						GetValueFromUser(index);
-						try
-						{
-							std::cout << "Enter a new value for the element" << std::endl;
-							std::complex<Type_Vectors> value((Type_Vectors)0, (Type_Vectors)0);
-							GetValueFromUser(value);
-							second_vector[index] = value;
-						}
-						catch (std::out_of_range& ex)
-						{
-							std::cout << ex.what() << " Try again" << std::endl;
-							system("pause");
-						}
-						break;
-					}
-					case 1: //*=
-					{
-						std::cout << "Enter a scalar" << std::endl;
-						std::complex<Type_Vectors> scalar((Type_Vectors)0, (Type_Vectors)0);
-						GetValueFromUser(scalar);
-						second_vector *= scalar;
-						break;
-					}
-					case 2: // /=
-					{
-						std::cout << "Enter a scalar" << std::endl;
-						std::complex<Type_Vectors> scalar((Type_Vectors)0, (Type_Vectors)0);
-						GetValueFromUser(scalar);
-						try
-						{
-							second_vector /= scalar;
-						}
-						catch (const char* ex)
-						{
-							std::cout << ex << " Try again" << std::endl;
-							system("pause");
-						}
-						break;
-					}
-					case 3: //insert
-					{
-						if (second_vector.GetSize())
-						{
-							std::cout << "Enter the index of element to insert" << std::endl;
-							size_t index = 0;
-							GetValueFromUser(index);
-							try
-							{
-								std::complex<Type_Vectors> value((Type_Vectors)rand(), (Type_Vectors)rand());
-								second_vector.Insert(value, index);
-							}
-							catch (std::out_of_range& ex)
-							{
-								std::cout << ex.what() << " Try again" << std::endl;
-								system("pause");
-							}
-						}
-						else
-						{
-							second_vector.PushBack(std::complex<Type_Vectors>((Type_Vectors)rand(), (Type_Vectors)rand()));
-						}
-						break;
-					}
-					case 4: //erase
-					{
-						if (second_vector.GetSize())
-						{
-							std::cout << "Enter the index of element to erase" << std::endl;
-							size_t index = 0;
-							GetValueFromUser(index);
-							try
-							{
-								second_vector.Erase(index);
-							}
-							catch (std::out_of_range& ex)
-							{
-								std::cout << ex.what() << " Try again" << std::endl;
-								system("pause");
-							}
-						}
-						else
-						{
-							std::cout << "There are no elements to delete" << std::endl;
-						}
-						break;
-					}
-					case 5: //finish working
-					{
-						working_with_second_vector = false;
-						break;
-					}
-					}
-				}
+				MenuWorkingWithVector(second_vector);
 			}
 			break;
 		}
@@ -652,7 +222,7 @@ void Menu(std::complex<Type_Vectors>)
 			system("pause");
 			break;
 		}
-		case 3: //скал¤рное произведение
+		case 3: //скалярное произведение
 		{
 			try
 			{
@@ -679,7 +249,7 @@ void Menu(std::complex<Type_Vectors>)
 			system("pause");
 			break;
 		}
-		case 6:
+		case 6: //приравнять первый ко второму
 		{
 			first_vector = second_vector;
 			break;
@@ -694,25 +264,245 @@ void Menu(std::complex<Type_Vectors>)
 		system("cls");
 	}
 }
+
+template <typename Type_Vectors>
+void MenuWorkingWithVector(Vector<Type_Vectors>& vector)
+{
+	bool working_with_vector = true;
+	while (working_with_vector)
+	{
+		system("cls");
+		std::cout << vector << std::endl;
+		std::cout << "You are now editing the first vector, Enter:" << std::endl;
+		std::cout << "0 - to edit the element in the vector with index\n1 - to multiply the vector by a scalar" << std::endl;
+		std::cout << "2 - to divide the vector by a scalar\n3 - add a new random element in the vector with index " << std::endl;
+		std::cout << "4 - remove an element from the vector\n5 - finish working with the vector" << std::endl;
+		long int editing_vector = 0;
+		GetValueFromUserInRange(editing_vector, (long int)0, (long int)5, "Enter the number in range[0;5]");
+		switch (editing_vector)
+		{
+			case 0: //edit
+			{
+				if (vector.GetSize())
+				{
+					std::cout << "Enter a index of element to edit" << std::endl;
+					size_t index = 0;
+					GetValueFromUser(index);
+					try
+					{
+						std::cout << "Enter a new value for the element" << std::endl;
+						Type_Vectors value = 0;
+						GetValueFromUser(value);
+						vector[index] = value;
+					}
+					catch (std::out_of_range& ex)
+					{
+						std::cout << ex.what() << " Try again" << std::endl;
+						system("pause");
+					}
+				}
+				break;
+			}
+			case 1: //*=
+			{
+				std::cout << "Enter a scalar" << std::endl;
+				Type_Vectors scalar = 0;
+				GetValueFromUser(scalar);
+				vector *= scalar;
+				break;
+			}
+			case 2: // /=
+			{
+				std::cout << "Enter a scalar" << std::endl;
+				Type_Vectors scalar = 0;
+				GetValueFromUser(scalar);
+				try
+				{
+					vector /= scalar;
+				}
+				catch (const char* ex)
+				{
+					std::cout << ex << " Try again" << std::endl;
+					system("pause");
+				}
+				break;
+			}
+			case 3: //insert
+			{
+				if (vector.GetSize())
+				{
+					std::cout << "Enter the index of element to insert" << std::endl;
+					size_t index = 0;
+					GetValueFromUser(index);
+					try
+					{
+						Type_Vectors value = (Type_Vectors)rand() / 10;
+						vector.Insert(value, index);
+					}
+					catch (std::out_of_range& ex)
+					{
+						std::cout << ex.what() << " Try again" << std::endl;
+						system("pause");
+					}
+				}
+				else
+				{
+					vector.PushBack((Type_Vectors)rand() / 10);
+				}
+				break;
+			}
+			case 4: //erase
+			{
+				if (vector.GetSize())
+				{
+					std::cout << "Enter the index of element to delete" << std::endl;
+					size_t index = 0;
+					GetValueFromUser(index);
+					try
+					{
+						vector.Erase(index);
+					}
+					catch (std::out_of_range& ex)
+					{
+						std::cout << ex.what() << " Try again" << std::endl;
+						system("pause");
+					}
+				}
+				else
+				{
+					std::cout << "There are no elements to delete" << std::endl;
+				}
+				break;
+			}
+			case 5: //finish working
+			{
+				working_with_vector = false;
+				break;
+			}
+		}
+	}
+}
+
+template <typename Type_Vectors>
+void MenuWorkingWithVector(Vector<std::complex<Type_Vectors>>& vector)
+{
+	bool working_with_vector = true;
+	while (working_with_vector)
+	{
+		system("cls");
+		std::cout << vector << std::endl;
+		std::cout << "You are now editing the vector, Enter:" << std::endl;
+		std::cout << "0 - to edit the element in the vector with index\n1 - to multiply the vector by a scalar" << std::endl;
+		std::cout << "2 - to divide the vector by a scalar\n3 - add a new random element in the vector with index " << std::endl;
+		std::cout << "4 - remove an element from the vector\n5 - finish working with the vector" << std::endl;
+		long int editing_vector = 0;
+		GetValueFromUserInRange(editing_vector, (long int)0, (long int)5, "Enter the number in range[0;5]");
+		switch (editing_vector)
+		{
+		case 0: //edit
+		{
+			if (vector.GetSize())
+			{
+				std::cout << "Enter a index of element to edit" << std::endl;
+				size_t index = 0;
+				GetValueFromUser(index);
+				try
+				{
+					std::cout << "Enter a new value for the element" << std::endl;
+					std::complex<Type_Vectors> value((Type_Vectors)0, (Type_Vectors)0);
+					GetValueFromUser(value);
+					vector[index] = value;
+				}
+				catch (std::out_of_range& ex)
+				{
+					std::cout << ex.what() << " Try again" << std::endl;
+					system("pause");
+				}
+			}
+			break;
+		}
+		case 1: //*=
+		{
+			std::cout << "Enter a scalar" << std::endl;
+			std::complex<Type_Vectors> scalar((Type_Vectors)0, (Type_Vectors)0);
+			GetValueFromUser(scalar);
+			vector *= scalar;
+			break;
+		}
+		case 2: // /=
+		{
+			std::cout << "Enter a scalar" << std::endl;
+			std::complex<Type_Vectors> scalar((Type_Vectors)0, (Type_Vectors)0);
+			GetValueFromUser(scalar);
+			try
+			{
+				vector /= scalar;
+			}
+			catch (const char* ex)
+			{
+				std::cout << ex << " Try again" << std::endl;
+				system("pause");
+			}
+			break;
+		}
+		case 3: //insert
+		{
+			if (vector.GetSize())
+			{
+				std::cout << "Enter the index of element to insert" << std::endl;
+				size_t index = 0;
+				GetValueFromUser(index);
+				try
+				{
+					std::complex<Type_Vectors> value((Type_Vectors)rand() / 10, (Type_Vectors)rand() / 10);
+					vector.Insert(value, index);
+				}
+				catch (std::out_of_range& ex)
+				{
+					std::cout << ex.what() << " Try again" << std::endl;
+					system("pause");
+				}
+			}
+			else
+			{
+				vector.PushBack(std::complex<Type_Vectors>((Type_Vectors)rand() / 10, (Type_Vectors)rand() / 10));
+			}
+			break;
+		}
+		case 4: //erase
+		{
+			if (vector.GetSize())
+			{
+				std::cout << "Enter the index of element to delete" << std::endl;
+				size_t index = 0;
+				GetValueFromUser(index);
+				try
+				{
+					vector.Erase(index);
+				}
+				catch (std::out_of_range& ex)
+				{
+					std::cout << ex.what() << " Try again" << std::endl;
+					system("pause");
+				}
+			}
+			else
+			{
+				std::cout << "There are no elements to delete" << std::endl;
+			}
+			break;
+		}
+		case 5: //finish working
+		{
+			working_with_vector = false;
+			break;
+		}
+		}
+	}
+}
+
 int main()
 {
-	//Vector<int> int_vector(11);
-	//int_vector.Insert(0, 0);
-	//int_vector.Insert(1, 0);
-	//int_vector.Insert(2, 0);
-	//std::cout << int_vector << std::endl;
-
-	//Vector<std::complex<double>> complex_vector;
-	//complex_vector.PushBack({ 1,1 });
-	//complex_vector.PushBack({ 1,-1 });
-	//Vector<std::complex<double>> complex_vector2;
-	//complex_vector2.PushBack({ 2,2 });
-	//complex_vector2.PushBack({ 3,-3 });
-
-	//std::cout<< complex_vector.DotProduct(complex_vector2);
-	//std::complex<double> x = 0;
-	//GetValueFromUser(x);
-	//std::cout << "\n" << x << std::endl;
 	bool working_with_vectors = true;
 	while (working_with_vectors)
 	{
@@ -724,35 +514,46 @@ int main()
 		std::cout << "5 - to finish working with program" << std::endl;
 		int option = 0;
 		GetValueFromUserInRange(option, 0, 5);
+		system("cls");
 		switch (option)
 		{
 			case 0:
 			{
 				Menu(0);
+#ifdef DEBUG_MODE
 				std::cout << "int" << std::endl;
+#endif
 				break;
 			}
 			case 1:
 			{
 				Menu((float)0.0);
+#ifdef DEBUG_MODE
 				std::cout << "float" << std::endl;
+#endif
 				break;
 			}
 			case 2:
 			{
 				Menu(0.0);
+#ifdef DEBUG_MODE
 				std::cout << "double" << std::endl;
+#endif
 				break;
 			}
 			case 3:
 			{
 				Menu(std::complex<float>(0, 0));
+#ifdef DEBUG_MODE
 				std::cout << "std::complex<float>" << std::endl;
+#endif
 				break;
 			}
 			case 4:
 			{
+#ifdef DEBUG_MODE
 				Menu(std::complex<double>(0, 0));
+#endif
 				std::cout << "std::complex<double>" << std::endl;
 				break;
 			}
