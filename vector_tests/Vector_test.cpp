@@ -24,9 +24,6 @@ TEST(VectorTests, ParametricCTOR_and_GetSize)
 	Vector<std::complex<double>> double_complex(53);
 	EXPECT_EQ(53, double_complex.GetSize());
 }
-TEST(VectorTests, ExpandCapacityByN) {
-	EXPECT_EQ(1, 2);
-}
 TEST(VectorTests, OperatorSquareBrackets)
 {
 	Vector<int> vec(3);
@@ -103,7 +100,7 @@ TEST(VectorTests, CopyCTOR)
 		EXPECT_EQ(3, vec_int_second.GetSize());
 		for (size_t i = 0; i < vec_int_second.GetSize(); i++)
 		{
-			EXPECT_EQ(vec_int_second[i], i + 1);
+			EXPECT_EQ(vec_int_second[i], (int)i + 1);
 		}
 		Vector<int> vec_int_empty;
 		Vector<int> vec_int_empty_copy(vec_int_empty);
@@ -121,7 +118,7 @@ TEST(VectorTests, CopyCTOR)
 		EXPECT_EQ(3, vec_float_second.GetSize());
 		for (size_t i = 0; i < vec_float_second.GetSize(); i++)
 		{
-			EXPECT_EQ(vec_float_second[i], i + 1.5);
+			EXPECT_EQ(vec_float_second[i], (float)i + 1.5);
 		}
 		Vector<float> vec_float_empty;
 		Vector<float> vec_float_empty_copy(vec_float_empty);
@@ -133,13 +130,13 @@ TEST(VectorTests, CopyCTOR)
 		Vector<double> vec_double_first(3);
 		for (size_t i = 0; i < vec_double_first.GetSize(); i++)
 		{
-			vec_double_first[i] = i + 1.5;
+			vec_double_first[i] = (double)i + 1.5;
 		}
 		Vector<double> vec_double_second(vec_double_first);
 		EXPECT_EQ(3, vec_double_second.GetSize());
 		for (size_t i = 0; i < vec_double_second.GetSize(); i++)
 		{
-			EXPECT_EQ(vec_double_second[i], i + 1.5);
+			EXPECT_EQ(vec_double_second[i], (double)i + 1.5);
 		}
 		Vector<double> vec_double_empty;
 		Vector<double> vec_double_empty_copy(vec_double_empty);
@@ -169,13 +166,13 @@ TEST(VectorTests, CopyCTOR)
 		Vector<std::complex<double>> vec_comp_double_first(5);
 		for (size_t i = 0; i < vec_comp_double_first.GetSize(); i++)
 		{
-			vec_comp_double_first[i] = std::complex<double>(i + 0.3, 0.3 - i);
+			vec_comp_double_first[i] = std::complex<double>((double)i + 0.3, 0.3 - (double)i);
 		}
 		Vector<std::complex<double>> vec_comp_double_second(vec_comp_double_first);
 		EXPECT_EQ(5, vec_comp_double_second.GetSize());
 		for (size_t i = 0; i < vec_comp_double_second.GetSize(); i++)
 		{
-			EXPECT_EQ(vec_comp_double_second[i], std::complex<double>(i + 0.3, 0.3 - i));
+			EXPECT_EQ(vec_comp_double_second[i], std::complex<double>((double)i + 0.3, 0.3 - (double)i));
 		}
 		Vector<std::complex<float>> vec_comp_double_empty;
 		Vector<std::complex<float>> vec_comp_double_empty_copy(vec_comp_double_empty);
@@ -325,7 +322,7 @@ TEST(VectorTests, Clear)
 		Vector<std::complex<float>> vector2(100);
 		for (size_t i = 0; i < vector2.GetSize(); i++)
 		{
-			vector2[i] = std::complex<float>((float)3.2*i*(-1),(float)0.5*i*(-2));
+			vector2[i] = std::complex<float>((float)3.2*(float)i*(-1),(float)0.5*(float)i*(-2));
 		}
 		vector2.Clear();
 		EXPECT_EQ(0, vector2.GetSize());
@@ -341,7 +338,7 @@ TEST(VectorTests, Clear)
 		Vector<std::complex<double>> vector2(100);
 		for (size_t i = 0; i < vector2.GetSize(); i++)
 		{
-			vector2[i] = std::complex<float>((float)3.2 * i * (-1), (float)0.5 * i * (-2));
+			vector2[i] = std::complex<float>((float)3.2 * (float)i * (-1), (float)0.5 * (float)i * (-2));
 		}
 		vector2.Clear();
 		EXPECT_EQ(0, vector2.GetSize());
@@ -503,7 +500,7 @@ TEST(VectorTests, Erase)
 		Vector<double> b(25);
 		for (size_t i = 0; i < b.GetSize(); i++)
 		{
-			b[i] = ((double)i + 1) * i;
+			b[i] = ((double)i + 1) * (double)i;
 		}
 		b.Erase(1);
 		EXPECT_EQ(b[1], 6);
@@ -530,7 +527,7 @@ TEST(VectorTests, Erase)
 		Vector<std::complex<float>> b(25);
 		for (size_t i = 0; i < b.GetSize(); i++)
 		{
-			b[i] = std::complex<float>(((float)i + 1) * i, ((float)i + 1) * i);
+			b[i] = std::complex<float>(((float)i + 1) * (float)i, ((float)i + 1) * (float)i);
 		}
 		b.Erase(1);
 		EXPECT_EQ(b[1], std::complex<float>(6, 6));
@@ -557,7 +554,7 @@ TEST(VectorTests, Erase)
 		Vector<std::complex<double>> b(25);
 		for (size_t i = 0; i < b.GetSize(); i++)
 		{
-			b[i] = std::complex<double>(((double)i + 1) * i, ((double)i + 1) * i);
+			b[i] = std::complex<double>(((double)i + 1) * (double)i, ((double)i + 1) * (double)i);
 		}
 		b.Erase(1);
 		EXPECT_EQ(b[1], std::complex<double>(6, 6));
@@ -604,8 +601,8 @@ TEST(VectorTests, OperatorPlusEqualForVectors)
 		Vector<float> second(5);
 		for (size_t i = 0; i < first.GetSize(); i++)
 		{
-			first[i] += i;
-			second[i] -= i;
+			first[i] += (float)i;
+			second[i] -= (float)i;
 		}
 		first += second;
 		for (size_t i = 0; i < first.GetSize(); i++)
@@ -623,8 +620,8 @@ TEST(VectorTests, OperatorPlusEqualForVectors)
 		Vector<double> second(5);
 		for (size_t i = 0; i < first.GetSize(); i++)
 		{
-			first[i] += i;
-			second[i] -= i;
+			first[i] += (double)i;
+			second[i] -= (double)i;
 		}
 		first += second;
 		for (size_t i = 0; i < first.GetSize(); i++)
@@ -1041,8 +1038,8 @@ TEST(VectorTests, OperatorMultiplyEqual)
 			Vector<float> d(5);
 			for (size_t i = 0; i < c.GetSize(); i++)
 			{
-				c[i] += (float)2 + i;
-				d[i] += (float)5 * i;
+				c[i] += (float)2 + (float)i;
+				d[i] += (float)5 * (float)i;
 			}
 			(float)2 *= c;
 			(float)(-1) *= d;
@@ -1086,8 +1083,8 @@ TEST(VectorTests, OperatorMultiplyEqual)
 			Vector<double> d(5);
 			for (size_t i = 0; i < c.GetSize(); i++)
 			{
-				c[i] += (double)2 + i;
-				d[i] += (double)5 * i;
+				c[i] += (double)2 + (double)i;
+				d[i] += (double)5 * (double)i;
 			}
 			(double)2 *= c;
 			(double)(-1) *= d;
@@ -1709,7 +1706,7 @@ TEST(VectorTests, OperatorAssigment)
 		Vector<float> b(3);
 		for (size_t i = 0; i < a.GetSize(); i++)
 		{
-			a[i] += i;
+			a[i] += (float)i;
 			b[i] += 2;
 		}
 		//self-assigment
@@ -1736,7 +1733,7 @@ TEST(VectorTests, OperatorAssigment)
 		Vector<double> b(3);
 		for (size_t i = 0; i < a.GetSize(); i++)
 		{
-			a[i] += i;
+			a[i] += (double)i;
 			b[i] += 2;
 		}
 		//self-assigment
