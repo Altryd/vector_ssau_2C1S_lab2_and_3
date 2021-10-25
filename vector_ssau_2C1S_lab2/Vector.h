@@ -11,8 +11,8 @@ private:
 	size_t grow_size;
 	void ExpandCapacityByN(const size_t n, const size_t index = 0, const bool end_insertion = true);
 public:
-	Vector() : data(NULL), size(0), capacity(0), grow_size(10) {} //check
-	Vector(const size_t size) //check
+	Vector() : data(NULL), size(0), capacity(0), grow_size(10) {} 
+	Vector(const size_t size) 
 	{
 		grow_size = 10;
 		this->size = size;
@@ -24,22 +24,22 @@ public:
 		}
 	}
 	~Vector() { delete[] data; }
-	Vector(const Vector<T>& rhs); //check
-	void Clear(); //check
-	size_t GetSize() const; //check
+	Vector(const Vector<T>& rhs); 
+	void Clear(); 
+	size_t GetSize() const; 
 	const T* GetData() const;
 	void Print() const; 
-	void PushBack(const T& value); //check
-	void Insert(const T& value, const size_t index);  //check
-	void Erase(const size_t index); //check
-	Vector<T>& operator=(const Vector<T>& rhs); //check
-	T& operator[] (const size_t index); //check
-	T operator[](const size_t index) const; //check
-	Vector<T>& operator+= (const Vector<T>& rhs); //check
-	Vector<T> operator+(const Vector<T>& rhs) const; //check
-	Vector<T>& operator-= (const Vector<T>& rhs); //check
-	Vector<T> operator-(const Vector<T>& rhs) const; //check
-	T DotProduct(const Vector<T>& rhs) const //check
+	void PushBack(const T& value); 
+	void Insert(const T& value, const size_t index);  
+	void Erase(const size_t index); 
+	Vector<T>& operator=(const Vector<T>& rhs); 
+	T& operator[] (const size_t index); 
+	T operator[](const size_t index) const; 
+	Vector<T>& operator+= (const Vector<T>& rhs); 
+	Vector<T> operator+(const Vector<T>& rhs) const; 
+	Vector<T>& operator-= (const Vector<T>& rhs); 
+	Vector<T> operator-(const Vector<T>& rhs) const; 
+	T DotProduct(const Vector<T>& rhs) const 
 	{
 		if (size != rhs.size) throw "Bad dimensions";
 		T scalar_product = 0;
@@ -49,26 +49,15 @@ public:
 		}
 		return scalar_product;
 	}
-	//OLD VERSION, Delete or Fix Later:
-	//std::complex<T> DotProduct(const Vector<std::complex<T>>& rhs) const
-	//{
-	//	if (size != rhs.size) throw "Bad dimensions";
-	//	std::complex<T> scalar_product = 0;
-	//	for (size_t i = 0; i < size; i++)
-	//	{
-	//		scalar_product += std::complex<T>(data[i].real() * rhs.data[i].real(), (-1) * data[i].imag() * rhs.data[i].imag());
-	//	}
-	//	return scalar_product;
-	//}
-	Vector<T>& operator*=(const T& value); //check
-	Vector<T> operator*(const T& value) const; //check
-	Vector<T>& operator/=(const T& value); //check
-	Vector<T> operator/(const T& value) const; //check
-	bool operator==(const Vector<T>& rhs) const; //check
-	bool operator!=(const Vector<T>& rhs) const; //check
+	Vector<T>& operator*=(const T& value); 
+	Vector<T> operator*(const T& value) const; 
+	Vector<T>& operator/=(const T& value); 
+	Vector<T> operator/(const T& value) const; 
+	bool operator==(const Vector<T>& rhs) const; 
+	bool operator!=(const Vector<T>& rhs) const; 
 };
 template<>
-std::complex<float> Vector<std::complex<float>>::DotProduct(const Vector<std::complex<float>>& rhs) const //check
+std::complex<float> Vector<std::complex<float>>::DotProduct(const Vector<std::complex<float>>& rhs) const 
 {
 	if (size != rhs.size) throw "Bad dimensions";
 	std::complex<float> scalar_product = 0;
@@ -79,7 +68,7 @@ std::complex<float> Vector<std::complex<float>>::DotProduct(const Vector<std::co
 	return scalar_product;
 }
 template<>
-std::complex<double> Vector<std::complex<double>>::DotProduct(const Vector<std::complex<double>>& rhs) const //check
+std::complex<double> Vector<std::complex<double>>::DotProduct(const Vector<std::complex<double>>& rhs) const 
 {
 	if (size != rhs.size) throw "Bad dimensions";
 	std::complex<double> scalar_product = 0;
@@ -91,9 +80,9 @@ std::complex<double> Vector<std::complex<double>>::DotProduct(const Vector<std::
 }
 
 template <class T>
-Vector<T>& operator*=(const T& value, Vector<T>& rhs); //check
+Vector<T>& operator*=(const T& value, Vector<T>& rhs); 
 template <class T>
-Vector<T> operator*(const T& value, const Vector<T>& rhs); //check
+Vector<T> operator*(const T& value, const Vector<T>& rhs); 
 template <class T>
 std::ostream& operator<< (std::ostream& out, const Vector<T>& vector);
 #include "Vector.inl"

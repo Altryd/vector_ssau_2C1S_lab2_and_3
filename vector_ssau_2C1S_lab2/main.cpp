@@ -1,6 +1,5 @@
 #include "Vector.h"
 #include <complex>
-#define DEBUG_MODE
 
 template <typename T>
 void GetValueFromUser(T& value)
@@ -551,10 +550,11 @@ int main()
 			}
 			case 4:
 			{
-#ifdef DEBUG_MODE
+
 				Menu(std::complex<double>(0, 0));
-#endif
+#ifdef DEBUG_MODE
 				std::cout << "std::complex<double>" << std::endl;
+#endif
 				break;
 			}
 			case 5:
