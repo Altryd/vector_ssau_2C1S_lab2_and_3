@@ -269,7 +269,6 @@ TEST(VectorTests, Clear)
 		Vector<int> vector(3);
 		vector.Clear();
 		EXPECT_EQ(0, vector.GetSize());
-		EXPECT_EQ(nullptr, vector.GetData());
 
 		Vector<int> vector2(100);
 		for (size_t i = 0; i < vector2.GetSize(); i++)
@@ -278,46 +277,12 @@ TEST(VectorTests, Clear)
 		}
 		vector2.Clear();
 		EXPECT_EQ(0, vector2.GetSize());
-		EXPECT_EQ(nullptr, vector2.GetData());
-	}
-	//double
-	{
-		Vector<double> vector(3);
-		vector.Clear();
-		EXPECT_EQ(0, vector.GetSize());
-		EXPECT_EQ(nullptr, vector.GetData());
-
-		Vector<double> vector2(100);
-		for (size_t i = 0; i < vector2.GetSize(); i++)
-		{
-			vector2[i] = (double)i * 3 - 2;
-		}
-		vector2.Clear();
-		EXPECT_EQ(0, vector2.GetSize());
-		EXPECT_EQ(nullptr, vector2.GetData());
-	}
-	//float
-	{
-		Vector<float> vector(3);
-		vector.Clear();
-		EXPECT_EQ(0, vector.GetSize());
-		EXPECT_EQ(nullptr, vector.GetData());
-
-		Vector<float> vector2(100);
-		for (size_t i = 0; i < vector2.GetSize(); i++)
-		{
-			vector2[i] = (float)i * 3 - (float)2.5;
-		}
-		vector2.Clear();
-		EXPECT_EQ(0, vector2.GetSize());
-		EXPECT_EQ(nullptr, vector2.GetData());
 	}
 	//complex<float>
 	{
 		Vector<std::complex<float>> vector(3);
 		vector.Clear();
 		EXPECT_EQ(0, vector.GetSize());
-		EXPECT_EQ(nullptr, vector.GetData());
 
 		Vector<std::complex<float>> vector2(100);
 		for (size_t i = 0; i < vector2.GetSize(); i++)
@@ -326,23 +291,6 @@ TEST(VectorTests, Clear)
 		}
 		vector2.Clear();
 		EXPECT_EQ(0, vector2.GetSize());
-		EXPECT_EQ(nullptr, vector2.GetData());
-	}
-	//complex<double>
-	{
-		Vector<std::complex<double>> vector(3);
-		vector.Clear();
-		EXPECT_EQ(0, vector.GetSize());
-		EXPECT_EQ(nullptr, vector.GetData());
-
-		Vector<std::complex<double>> vector2(100);
-		for (size_t i = 0; i < vector2.GetSize(); i++)
-		{
-			vector2[i] = std::complex<float>((float)3.2 * (float)i * (-1), (float)0.5 * (float)i * (-2));
-		}
-		vector2.Clear();
-		EXPECT_EQ(0, vector2.GetSize());
-		EXPECT_EQ(nullptr, vector2.GetData());
 	}
 	
 	//adding after clearing
@@ -437,7 +385,6 @@ TEST(VectorTests, Erase)
 	//int
 	{
 		Vector<int> a;
-		EXPECT_NO_THROW(a.Erase(5));
 		a.PushBack(1);
 		EXPECT_THROW(a.Erase(5), std::out_of_range);
 		EXPECT_NO_THROW(a.Erase(0));
@@ -461,64 +408,9 @@ TEST(VectorTests, Erase)
 		EXPECT_EQ(b[22], 600);
 		EXPECT_EQ(b.GetSize(), 23);
 	}
-	//float
-	{
-		Vector<float> a;
-		EXPECT_NO_THROW(a.Erase(5));
-		a.PushBack(1);
-		EXPECT_THROW(a.Erase(5), std::out_of_range);
-		EXPECT_NO_THROW(a.Erase(0));
-		EXPECT_EQ(0, a.GetSize());
-
-		Vector<float> b(25);
-		for (size_t i = 0; i < b.GetSize(); i++)
-		{
-			b[i] = ((float)i + 1) * (float)i;
-		}
-		b.Erase(1);
-		EXPECT_EQ(b[1], 6);
-		EXPECT_EQ(b[0], 0);
-		EXPECT_EQ(b[9], 110);
-		EXPECT_EQ(b.GetSize(), 24);
-		b.Erase(22);
-		EXPECT_EQ(b[1], 6);
-		EXPECT_EQ(b[0], 0);
-		EXPECT_EQ(b[9], 110);
-		EXPECT_EQ(b[21], 506);
-		EXPECT_EQ(b[22], 600);
-		EXPECT_EQ(b.GetSize(), 23);
-	}
-	//double
-	{
-		Vector<double> a;
-		EXPECT_NO_THROW(a.Erase(5));
-		a.PushBack(1);
-		EXPECT_THROW(a.Erase(5), std::out_of_range);
-		EXPECT_NO_THROW(a.Erase(0));
-		EXPECT_EQ(0, a.GetSize());
-
-		Vector<double> b(25);
-		for (size_t i = 0; i < b.GetSize(); i++)
-		{
-			b[i] = ((double)i + 1) * (double)i;
-		}
-		b.Erase(1);
-		EXPECT_EQ(b[1], 6);
-		EXPECT_EQ(b[0], 0);
-		EXPECT_EQ(b[9], 110);
-		EXPECT_EQ(b.GetSize(), 24);
-		b.Erase(22);
-		EXPECT_EQ(b[1], 6);
-		EXPECT_EQ(b[0], 0);
-		EXPECT_EQ(b[9], 110);
-		EXPECT_EQ(b[21], 506);
-		EXPECT_EQ(b[22], 600);
-		EXPECT_EQ(b.GetSize(), 23);
-	}
 	//std::complex<float>
 	{
 		Vector<std::complex<float>> a;
-		EXPECT_NO_THROW(a.Erase(5));
 		a.PushBack(std::complex<float>(3, -2));
 		EXPECT_THROW(a.Erase(5), std::out_of_range);
 		EXPECT_NO_THROW(a.Erase(0));
@@ -540,33 +432,6 @@ TEST(VectorTests, Erase)
 		EXPECT_EQ(b[9], std::complex<float>(110, 110));
 		EXPECT_EQ(b[21], std::complex<float>(506, 506));
 		EXPECT_EQ(b[22], std::complex<float>(600, 600));
-		EXPECT_EQ(b.GetSize(), 23);
-	}
-	//std::complex<double>
-	{
-		Vector<std::complex<double>> a;
-		EXPECT_NO_THROW(a.Erase(5));
-		a.PushBack(std::complex<double>(3, -2));
-		EXPECT_THROW(a.Erase(5), std::out_of_range);
-		EXPECT_NO_THROW(a.Erase(0));
-		EXPECT_EQ(0, a.GetSize());
-
-		Vector<std::complex<double>> b(25);
-		for (size_t i = 0; i < b.GetSize(); i++)
-		{
-			b[i] = std::complex<double>(((double)i + 1) * (double)i, ((double)i + 1) * (double)i);
-		}
-		b.Erase(1);
-		EXPECT_EQ(b[1], std::complex<double>(6, 6));
-		EXPECT_EQ(b[0], std::complex<double>(0, 0));
-		EXPECT_EQ(b[9], std::complex<double>(110, 110));
-		EXPECT_EQ(b.GetSize(), 24);
-		b.Erase(22);
-		EXPECT_EQ(b[1], std::complex<double>(6, 6));
-		EXPECT_EQ(b[0], std::complex<double> (0, 0));
-		EXPECT_EQ(b[9], std::complex<double>(110, 110));
-		EXPECT_EQ(b[21], std::complex<double>(506, 506));
-		EXPECT_EQ(b[22], std::complex<double>(600, 600));
 		EXPECT_EQ(b.GetSize(), 23);
 	}
 }
@@ -2122,4 +1987,29 @@ TEST(VectorTests, DotProductStdComplex)
 		}
 		EXPECT_EQ(std::complex<double>(1, -10), vector_one.DotProduct(vector_two));
 	}
+}
+TEST(VectorTests, RangeBasedForLoop)
+{
+	Vector<int> vec;
+	for (int i = 0; i < 5; i++)
+	{
+		vec.PushBack(i + 2);
+	}
+	int i = 0;
+	for (auto it = vec.Begin(); it != vec.End(); it++)
+	{
+		*it += 1;
+		EXPECT_EQ(*it, i + 3);
+		i++;
+	}
+
+	auto it = vec.Begin();
+	for (; it != vec.End();) {
+		//std::cout << *it;
+		it = vec.Erase(it);
+	}
+	EXPECT_EQ(0, vec.GetSize());
+	vec.Insert(vec.Begin(), 3);
+	EXPECT_EQ(3, vec[0]);
+	EXPECT_EQ(1, vec.GetSize());
 }

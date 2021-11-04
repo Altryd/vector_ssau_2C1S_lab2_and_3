@@ -1,38 +1,47 @@
 ﻿#pragma once
 #include <iostream>
 #include <complex>
+#include <vector>
+#include <iterator>
 template <class T>
 class Vector
 {
 private:
-	T* data;
-	size_t size;
-	size_t capacity;
-	size_t grow_size;
-	void ExpandCapacityByN(const size_t n, const size_t index = 0, const bool end_insertion = true);
+	std::vector<T> vector;
 public:
-	Vector() : data(NULL), size(0), capacity(0), grow_size(10) {} 
-	Vector(const size_t size) 
+	Vector(const size_t size=0) 
 	{
-		grow_size = 10;
-		this->size = size;
-		capacity = size + grow_size;
-		data = new T[capacity];
-		for (size_t i = 0; i < capacity; i++)
+		for (size_t i = 0; i < size; i++)
 		{
-			data[i] = 0;
+			vector.push_back(0);
 		}
 	}
-	~Vector() { delete[] data; }
-	Vector(const Vector<T>& rhs); 
+	Vector(const Vector<T>& rhs) = default; 
+	~Vector() = default;
+	auto Begin() noexcept
+	{
+		return vector.begin();
+	}
+	auto End() noexcept
+	{
+		return vector.end();
+	}
 	void Clear(); 
 	size_t GetSize() const; 
 	const T* GetData() const;
 	void Print() const; 
 	void PushBack(const T& value); 
-	void Insert(const T& value, const size_t index);  
-	void Erase(const size_t index); 
-	Vector<T>& operator=(const Vector<T>& rhs); 
+	void Insert(const T& value, const size_t index);
+	void Insert(typename std::vector<T>::iterator it, const T& value)
+	{
+		vector.insert(it, value);
+	}
+	auto Erase(const size_t index); 
+	auto Erase(typename std::vector<T>::const_iterator it)
+	{
+		return vector.erase(it);
+	}
+	Vector<T>& operator=(const Vector<T>& rhs) = default;
 	T& operator[] (const size_t index); 
 	T operator[](const size_t index) const; 
 	Vector<T>& operator+= (const Vector<T>& rhs); 
@@ -41,11 +50,11 @@ public:
 	Vector<T> operator-(const Vector<T>& rhs) const; 
 	T DotProduct(const Vector<T>& rhs) const 
 	{
-		if (size != rhs.size) throw "Bad dimensions";
+		if (vector.size() != rhs.vector.size()) throw "Bad dimensions";
 		T scalar_product = 0;
-		for (size_t i = 0; i < size; i++)
+		for (size_t i = 0; i < vector.size(); i++)
 		{
-			scalar_product += data[i] * rhs.data[i];
+			scalar_product += vector[i] * rhs.vector[i];
 		}
 		return scalar_product;
 	}
@@ -59,22 +68,22 @@ public:
 template<>
 std::complex<float> Vector<std::complex<float>>::DotProduct(const Vector<std::complex<float>>& rhs) const 
 {
-	if (size != rhs.size) throw "Bad dimensions";
+	if (vector.size() != rhs.vector.size()) throw "Bad dimensions";
 	std::complex<float> scalar_product = 0;
-	for (size_t i = 0; i < size; i++)
+	for (size_t i = 0; i < vector.size(); i++)
 	{
-		scalar_product += std::complex<float>(data[i].real() * rhs.data[i].real(), (-1) * data[i].imag() * rhs.data[i].imag());
+		scalar_product += std::complex<float>(vector[i].real() * rhs.vector[i].real(), (-1) * vector[i].imag() * rhs.vector[i].imag());
 	}
 	return scalar_product;
 }
 template<>
 std::complex<double> Vector<std::complex<double>>::DotProduct(const Vector<std::complex<double>>& rhs) const 
 {
-	if (size != rhs.size) throw "Bad dimensions";
+	if (vector.size() != rhs.vector.size()) throw "Bad dimensions";
 	std::complex<double> scalar_product = 0;
-	for (size_t i = 0; i < size; i++)
+	for (size_t i = 0; i < vector.size(); i++)
 	{
-		scalar_product += std::complex<double>(data[i].real() * rhs.data[i].real(), (-1) * data[i].imag() * rhs.data[i].imag());
+		scalar_product += std::complex<double>(vector[i].real() * rhs.vector[i].real(), (-1) * vector[i].imag() * rhs.vector[i].imag());
 	}
 	return scalar_product;
 }

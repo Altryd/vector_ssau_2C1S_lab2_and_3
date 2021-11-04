@@ -1,6 +1,6 @@
 #include "Vector.h"
 #include <complex>
-
+#include <vector>
 template <typename T>
 void GetValueFromUser(T& value)
 {
@@ -502,6 +502,7 @@ void MenuWorkingWithVector(Vector<std::complex<Type_Vectors>>& vector)
 
 int main()
 {
+	std::vector<int> ky();
 	bool working_with_vectors = true;
 	while (working_with_vectors)
 	{
