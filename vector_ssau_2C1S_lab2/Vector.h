@@ -19,6 +19,14 @@ public:
 	}
 	Vector(const Vector<T>& rhs) = default; 
 	~Vector() = default;
+	auto Begin() const noexcept
+	{
+		return vector.begin();
+	}
+	auto End() const noexcept
+	{
+		return vector.end();
+	}
 	auto Begin() noexcept
 	{
 		return vector.begin();
