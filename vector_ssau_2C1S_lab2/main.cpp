@@ -502,7 +502,6 @@ void MenuWorkingWithVector(Vector<std::complex<Type_Vectors>>& vector)
 
 int main()
 {
-	std::vector<int> ky();
 	bool working_with_vectors = true;
 	while (working_with_vectors)
 	{

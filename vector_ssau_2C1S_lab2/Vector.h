@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <iostream>
 #include <complex>
+#include <cmath>
 #include <vector>
 #include <iterator>
 template <class T>

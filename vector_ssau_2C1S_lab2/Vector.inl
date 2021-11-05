@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <iostream>
 #include <iterator>
+#include <cmath>
 #include "Vector.h"
 template<class T>
 void Vector<T>::Insert(const T& value, const size_t index)
@@ -143,7 +144,7 @@ bool Vector<double>::operator==(const Vector<double>& rhs) const
 		if (vector.size() != rhs.vector.size()) return false;
 		for (size_t i = 0; i < vector.size(); i++)
 		{
-			if (abs(vector[i] - rhs.vector[i]) >= 0.005) return false;
+			if (std::abs(vector[i] - rhs.vector[i]) >= 0.005) return false;
 		}
 		return true;
 }
@@ -153,7 +154,7 @@ bool Vector<float>::operator==(const Vector<float>& rhs) const
 	if (vector.size() != rhs.vector.size()) return false;
 	for (size_t i = 0; i < vector.size(); i++)
 	{
-		if (abs(vector[i] - rhs.vector[i]) >= 0.005) return false;
+		if (std::abs(vector[i] - rhs.vector[i]) >= 0.005) return false;
 	}
 	return true;
 }
