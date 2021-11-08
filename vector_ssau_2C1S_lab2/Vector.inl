@@ -7,8 +7,8 @@ template<class T>
 void Vector<T>::Insert(const T& value, const size_t index)
 {
 	if (index > vector.size()) throw std::out_of_range("Index is out of range");
-	auto ky = std::next(vector.begin(), index);
-	vector.insert(ky, value);
+	auto hint = std::next(vector.begin(), index);
+	vector.insert(hint, value);
 }
 template <class T>
 void Vector<T>::Clear()
